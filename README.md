@@ -47,3 +47,5 @@ If you are having some memory issues, try turning the limit down in Client/Accou
 For enabling this, edit Config.json, located in the backend directory.
 # Credits
 Credits to iLinked.
+# Screenshot
+https://user-images.githubusercontent.com/68478332/126072655-c151d87e-e803-4819-bf67-37919c084270.png
