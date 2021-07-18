@@ -1,6 +1,8 @@
+# README
+This file is created by iLinked, not by me.
 # About
 OpenDiscordHaxx is an opensource version of my raidbot 'DiscordHaxx' that was released about half a year ago.<br>
-This raidbot is powered by Anarchy (https://github.com/iLinked1337/Anarchy), which is a powerful API wrapper that specializes in selfbots of all sorts.<br>
+This raidbot is powered by Anarchy (https://github.com/iLinked1337/Anarchy DELETED), which is a powerful API wrapper that specializes in selfbots of all sorts.<br>
 
 # Features
 ### Bots
@@ -45,3 +47,5 @@ If your accounts are not working, try putting them through the account checker, 
 When your accounts are being loaded, all clients below 50 (or whatever your cap is) will be set as 'socket clients' (makes them more responsive).<br>
 If you are having some memory issues, try turning the limit down in Client/AccountList.cs, Line 45.<br>
 For enabling this, edit Config.json, located in the backend directory.
+# Credits
+Credits to iLinked.
