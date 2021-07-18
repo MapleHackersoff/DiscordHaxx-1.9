@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+<head>
+    <!-- Other shit -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <link rel="Icon" type="image/x-icon" href="../Images/Anarchy.png">
+    <title>Cleaner - OpenDH</title>
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/ODH.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="../js/Toast.js"></script>
+    <script src="../js/Error.js"></script>
+    <script src="../js/Cleaner.js"></script>
+</head>
+
+<style>
+  .form-check-label {
+    font-weight:300; 
+    font-size: 15px;
+  }
+</style>
+
+<nav id="odh-nav" class="navbar navbar-inverse" style="border: none">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" style="font-family: Roboto;" href="../Dashboard.html">DiscordHaxx</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Management<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../Dashboard.html">Dashboard</a></li>
+            <li><a href="../Bot/List.html">Bots</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Start attack<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="../Bot/Joiner.html">Joiner</a></li>
+                <li><a href="../Bot/Leaver.html">Leaver</a></li>
+                <li><a href="../Bot/Flooder.html">Flooder</a></li>
+                <li><a href="../Bot/Friender.html">Friender</a></li>
+                <li><a href="../Bot/Reactions.html">Reactions</a></li>
+                <li><a href="../Bot/VCSpammer.html">VC spammer</a></li>
+            </ul>
+        </li>
+        <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown">Tools<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="Checker.html">Checker</a></li>
+              <li><a href="Cleaner.html">Cleaner</a></li>
+              <li><a href="Recon.html">Server recon</a></li>
+            </ul>
+        </li>
+    </ul>
+  </div>
+  </nav> 
+
+<body class="dark-body">
+    <h1 class="dark-title" style="margin-top: 40px; text-align: center">Bot cleaner</h1>
+
+    <fieldset id="clean-options">
+        <form class="form-control dark-container center-block" style="width: 50%; min-width: 210px; height: 300px; position: relative; margin-top: 30px">
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remove-guilds" checked>
+              <label class="form-check-label" for="remove-guilds">Remove guilds</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remove-relationships" checked>
+              <label class="form-check-label" for="remove-relationships">Remove relationships</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remove-privates" checked>
+              <label class="form-check-label" for="remove-privates">Remove DMs</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="reset-profile">
+              <label class="form-check-label" for="reset-profile">Reset profile</label>
+            </div>
+      
+            <button class="btn dark-btn" data-dismiss="modal" style="width: 180px; position: absolute; bottom: 13px; right: 13px" onclick="StartCleaner()">Start</button>
+          </form>
+    </fieldset>
+
+
+    <div class="center-block" style="width: 50%; min-width: 210px; margin-top: 55px">
+      <h3 class="dark-title" style="text-align: left">Logs</h3>
+
+      <textarea id="cleaner-logs" class="form-control dark-container" rows="14" style="width: 100%; margin-top: 10px; resize: none" readonly></textarea>
+    </div>
+</html>

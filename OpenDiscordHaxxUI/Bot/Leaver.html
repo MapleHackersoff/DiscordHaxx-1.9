@@ -1,0 +1,96 @@
+<script>
+    function Submit() {
+        StartBot({ op: 'leave', guild_id: document.getElementById('guild-id').value,
+                                group: document.getElementById('group').checked == true,
+                                threads: document.getElementById('thread-amount').value });
+    }
+
+  function CheckGroup() {
+  const guildBox = document.getElementById('guild-id');
+
+  if (!document.getElementById('group').checked)
+      guildBox.placeholder = 'Server ID';
+    else 
+      guildBox.placeholder = 'Group ID';
+  }
+</script>
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+<head>
+    <!-- Other shit-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <link rel="Icon" type="image/x-icon" href="../Images/Anarchy.png">
+    <title>Leaver - OpenDH</title>
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/ODH.css">
+    <link rel="stylesheet" href="../css/Input-fix.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="../js/Toast.js"></script>
+    <script src="../js/Error.js"></script>
+    <script src="../js/RaidBot.js"></script>
+</head>
+
+<nav id="odh-nav" class="navbar navbar-inverse" style="border: none">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" style="font-family: Roboto;" href="../Dashboard.html">DiscordHaxx</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Management<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="../Dashboard.html">Dashboard</a></li>
+          <li><a href="List.html">Bots</a></li>
+        </ul>
+      </li>
+      <li class="dropdown active">
+          <a class="dropdown-toggle" data-toggle="dropdown">Start attack<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="Joiner.html">Joiner</a></li>
+              <li><a href="Leaver.html">Leaver</a></li>
+              <li><a href="Flooder.html">Flooder</a></li>
+              <li><a href="Friender.html">Friender</a></li>
+              <li><a href="Reactions.html">Reactions</a></li>
+              <li><a href="VCSpammer.html">VC spammer</a></li>
+          </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Tools<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="../Tools/Checker.html">Checker</a></li>
+          <li><a href="../Tools/Cleaner.html">Cleaner</a></li>
+          <li><a href="../Tools/Recon.html">Server recon</a></li>
+        </ul>
+      </li>
+  </ul>
+</div>
+</nav>
+
+<body class="dark-body">
+      <h1 class="dark-title" style="margin-top: 40px;">Leaver</h1>
+      <br>
+
+      <input type="number" min="1" class="form-control dark-input center-block" style="width: 340px;" placeholder="Server ID" id="guild-id">
+      <div class="center-block" style="width: 62px; margin-top: 12px" onclick="CheckGroup()">
+        <input type="checkbox" id="group">
+        <label for="group" style="color: rgb(210,212,215); font-size: 16px; font-weight: 300">Group</label>
+      </div>
+
+      <button class="btn dark-btn center-block" style="width: 240px; margin-top: 30px" onclick="Submit()">Start</button>
+
+      <input type="number" min="1" max="2000" class="form-control dark-input" placeholder="Threads" id="thread-amount">
+</body>
+</html>

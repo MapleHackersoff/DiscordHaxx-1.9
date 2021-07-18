@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+<head>
+    <!-- Other shit -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <link rel="Icon" type="image/x-icon" href="../Images/Anarchy.png">
+    <title>Server recon - OpenDH</title>
+
+
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/ODH.css">
+    <link rel="stylesheet" href="../css/Input-fix.css">
+    <link rel="stylesheet" href="../css/Table.css">
+    <link rel="stylesheet" href="../css/ContextMenu.css">
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="../js/Toast.js"></script>
+    <script src="../js/Error.js"></script>
+    <script src="../js/ContextMenu.js"></script>
+    <script src="../js/Recon.js"></script>
+</head>
+
+
+<nav id="odh-nav" class="navbar navbar-inverse" style="border: none">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" style="font-family: Roboto;" href="../Dashboard.html">DiscordHaxx</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Management<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../Dashboard.html">Dashboard</a></li>
+            <li><a href="../Bot/List.html">Bots</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Start attack<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="../Bot/Joiner.html">Joiner</a></li>
+                <li><a href="../Bot/Leaver.html">Leaver</a></li>
+                <li><a href="../Bot/Flooder.html">Flooder</a></li>
+                <li><a href="../Bot/Friender.html">Friender</a></li>
+                <li><a href="../Bot/Reactions.html">Reactions</a></li>
+                <li><a href="../Bot/VCSpammer.html">VC spammer</a></li>
+            </ul>
+        </li>
+        <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown">Tools<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="Checker.html">Checker</a></li>
+              <li><a href="Cleaner.html">Cleaner</a></li>
+              <li><a href="Recon.html">Server recon</a></li>
+            </ul>
+        </li>
+    </ul>
+  </div>
+  </nav> 
+
+<body class="dark-body">
+    <ul id="roles-context-menu" class="dropdown-menu" role="menu" style="display:none;">
+        <li><a>Get messagable</a></li>
+    </ul>
+
+
+    <div id="transformed-modal" class="modal fade" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content dark-container">
+            <div class="modal-body">
+              <button type="button" class="close" style="color: rgb(230,252,255)" data-dismiss="modal" aria-hidden="true">&times;</button> 
+              <h3 id="transformed-modal-title" class="modal-title">Role as messagable</h3>
+              
+              <p id="transformed" style="margin-top: 12px"></p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <ul id="emojis-context-menu" class="dropdown-menu" role="menu" style="display: none">
+      <li><a>Get messagable</a></li>
+      <li><a>Get reactable</a></li>
+    </ul>
+
+    <h1 class="dark-title" style="margin-top: 40px; text-align: center">Server recon</h1>
+
+    <fieldset id="recon-container">
+      <div class="form-control dark-container center-block" style="width: 70%; min-width: 652px; height: 77%; min-height: 635px; margin-top: 30px;">
+        <div style="margin: 15px;">
+            <div style="display: flex; margin-top: 21px;">
+                <input type="number" min="1" class="form-control dark-input" style="width: 85%; margin-right: 20px" placeholder="Server ID" id="guild-id">
+                <button class="btn dark-btn" style="width: 170px; align-self: flex-end" onclick="StartRecon()">Start</button>
+            </div>
+
+            <br>
+            <hr>
+
+            <!-- Server info -->
+            <div class="form-control dark-container" style="background-color: rgb(56,60,67) !important; width: 100%; height: 186px; margin-top: 42px">
+                <h3 id="server-name" style="font-family: Roboto; margin-top: 5px">Please enter a server ID</h3>
+                <p id="server-desc" style="color: rgb(210,212,215)">No description</p>
+                <p id="server-region" style="margin-top: 14px; font-size: 17px">Server region: Unknown</p>
+                <p id="verification-level" style="font-size: 17px">Verification level: Unknown</p>
+                <p id="vanity-invite" style="font-size: 17px">Custom invite: None</p>
+            </div>
+
+            <!-- Pingable roles, Emojis -->
+            <div style="display: flex; margin-top: 15px">
+              <div style="width: 49%">
+                <h2 class="dark-title">Pingable roles</h2>
+                <div class="form-control dark-container" style="background-color: rgb(56,60,67) !important; width: 100%; height: 210px">
+                  <div style="max-height: 200px; overflow: auto">
+                    <table class="table table-hover">
+                      <thead>
+                          <th>Name</th>
+                          <th>ID</th>
+                      </thead>
+                      <tbody id="role-list">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+              <div style="width: 49%; margin-left: 40px">
+                <h2 class="dark-title">Emojis</h2>
+                <div class="form-control dark-container" style="background-color: rgb(56,60,67) !important; width: 100%; height: 210px">
+                  <div style="max-height: 200px; overflow: auto">
+                    <table class="table table-hover">
+                      <thead>
+                          <th>Name</th>
+                          <th>ID</th>
+                      </thead>
+                      <tbody id="emoji-list">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>            
+
+            <p id="bots-in-server" style="margin-top: 15px">No bots are in this server</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <p id="recon-id" style="display: none"></p>
+</html>

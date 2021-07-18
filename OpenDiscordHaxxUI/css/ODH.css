@@ -1,0 +1,63 @@
+/* stuff for nav bar*/
+div ul li ul {
+    background-color: rgb(34,34,34) !important;
+}
+
+
+div ul li ul li a  {
+    color: rgb(190,192,195) !important;
+    font-family: 'Roboto';
+}
+
+
+div ul li ul li a:hover  {
+    background-color: rgb(38,38,38) !important;
+}
+/* end of stuff for nav bar */
+
+
+.dark-body {
+    background-color: rgb(54,57,63); 
+    height: 100%;
+}
+
+
+.dark-title {
+    color: rgb(230,252,255) !important;
+    font-family: 'Roboto';
+    font-weight: 100;
+    text-align: center;
+}
+
+
+.dark-container {
+    border-color: rgb(49,51,56) !important;
+    background-color: rgb(58,62,69) !important;
+    color: rgb(230,252,255) !important;
+    font-family: 'Roboto';
+}
+
+
+.dark-btn {
+    background-color: rgb(45,47,51) !important; 
+    border-color: rgb(40,44,47) !important;
+    color: rgb(230,252,255) !important;
+    letter-spacing: 0.5px;
+    font-family: 'Roboto';
+}
+
+
+.dark-input {
+    background-color: rgb(47,49,54) !important; 
+    border-color: rgb(40,44,47) !important;
+    color: rgb(230,252,255) !important;
+    font-family: 'Roboto';
+}
+
+
+#thread-amount {
+    width: 140px; 
+    position: absolute; 
+    bottom: 10px;
+    right: 10px;
+}

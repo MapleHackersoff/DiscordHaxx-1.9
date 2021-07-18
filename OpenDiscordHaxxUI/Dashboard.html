@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+
+<style>
+  /* Brief information */
+  [id$=amount] {
+    color: rgb(160,162,165); 
+    font-size: 21px; 
+    font-family: 'Roboto';
+    text-align: center;
+  }
+
+  .attacks-tr {
+    letter-spacing: 0.7px; 
+    font-size: 17.5px;
+  }
+</style>
+
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+<head>
+    <!-- Other shit -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <link rel="Icon" type="image/x-icon" href="Images/Anarchy.png">
+    <title>Dashboard - OpenDH</title>
+
+
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ODH.css">
+    <link rel="stylesheet" href="css/Table.css">
+    <link rel="stylesheet" href="css/ContextMenu.css">
+    <link rel="stylesheet" href="css/Dashboard.css">
+
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    <script src="js/ContextMenu.js" type="text/javascript"></script>
+    <script src="js/Dashboard.js" type="text/javascript"></script>
+</head>
+
+
+<nav class="navbar navbar-inverse" style="border: none">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" style="font-family: Roboto;" href="Dashboard.html">DiscordHaxx</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="dropdown active">
+              <a class="dropdown-toggle" data-toggle="dropdown">Management<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="Bot/List.html">Bots</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Start attack<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="Bot/Joiner.html">Joiner</a></li>
+                    <li><a href="Bot/Leaver.html">Leaver</a></li>
+                    <li><a href="Bot/Flooder.html">Flooder</a></li>
+                    <li><a href="Bot/Friender.html">Friender</a></li>
+                    <li><a href="Bot/Reactions.html">Reactions</a></li>
+                    <li><a href="Bot/VCSpammer.html">VC spammer</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Tools<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="Tools/Checker.html">Checker</a></li>
+                  <li><a href="Tools/Cleaner.html">Cleaner</a></li>
+                  <li><a href="Tools/Recon.html">Server recon</a></li>
+                </ul>
+              </li>
+        </ul>
+    </div>
+</nav> 
+
+<body class="dark-body">
+    <div style="display: flex; align-items: center; width: 646px; margin:0 auto">
+        <!-- Server status -->
+        <form class="form-control dark-container dashboard-container" style="width: 294px; height: 140px;">
+            <p class="dark-title dashboard-title">Server status</p>
+            <p id="serverStatus" style="color: rgb(170,192,195); font-size: 21px; font-family: Roboto; text-align: center; margin-top: 10px">UNKNOWN</p>
+        </form>
+        
+        <!-- Brief information -->
+        <form class="form-control dark-container dashboard-container" style="width: 294px; height: 140px;">
+            <p class="dark-title dashboard-title" style="padding-bottom: 7px">Overlook</p>
+            <p id="account-amount">Loaded accounts: <span style="color: rgb(230,252,255)">0</span></p>
+            <p id="attack-amount">Ongoing attacks: <span style="color: rgb(230,252,255)">0</span></p>
+        </form>
+    </div>
+
+
+    <!-- Ongoing attacks -->
+    <ul id="attack-list-context-menu" class="dropdown-menu dark-dropdown-menu" role="menu" style="display:none">
+      <li><a class="dark-dropdown">Kill</a></li>
+    </ul>
+
+    <div class="form-control dark-container dashboard-container" style="width: 608px; height: 400px; margin:0 auto; margin-top: 19px">
+        <p class="dark-title dashboard-title">Ongoing attacks</p>
+
+        <style>
+          .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: rgb(64,68,75);
+          }
+        </style>
+
+        <div class="form-control" style="background-color: rgb(61,65,72); border-color: rgb(56,58,63); height: 330px; margin-top: 15px">
+            <div style="max-height: 330px; overflow: auto">
+                <table class="table table-hover">
+                    <thead>
+                        <th>Type</th>
+                        <th>Bots</th>
+                        <th>Threads</th>
+                    </thead>
+                    <tbody id="attack-list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- End of ongoing attacks -->
+</body>
+</html>

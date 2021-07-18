@@ -1,0 +1,19 @@
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: rgb(62,66,73);
+}
+  
+
+th {
+    font-weight: 300;
+    width: 25%;
+}
+  
+  
+tr {
+    border-style: hidden !important;
+}
+
+.table {
+    color: rgb(230,252,255);
+}

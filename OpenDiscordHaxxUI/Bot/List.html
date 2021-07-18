@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+<head>
+    <!-- Other shit -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <link rel="Icon" type="image/x-icon" href="../Images/Anarchy.png">
+    <title>Bots - OpenDH</title>
+
+
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/ODH.css">
+    <link rel="stylesheet" href="../css/Table.css">
+    <link rel="stylesheet" href="../css/ContextMenu.css">
+
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    <script src="../js/ContextMenu.js"></script>
+    <script src="../js/Toast.js"></script>
+    <script src="../js/Error.js"></script>
+    <script src="../js/BotList.js"></script>
+</head>
+
+<script>
+    let imageData = null;
+
+    function ReadImageFile(input) {
+        if (input.files && input.files[0]) {
+          let reader = new FileReader();
+          reader.onload = function (e) {
+            const splitted = input.value.split('.');
+            const extension = splitted[splitted.length - 1];
+
+            if (extension == 'png' || extension == 'jpg' || extension == 'gif') {
+              imageData = e.target.result;
+
+              $('#modify-pfp')
+              .attr('src', e.target.result)
+              .width(80)
+              .height(80);
+            }
+          };
+          
+          reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function Modify() {
+      SendJson({ op: ListOpcode.BotModify, 
+                 id: document.getElementById('modify-id').innerText, 
+                 hypesquad: document.getElementById('modify-hype').value,
+                 status: document.getElementById('status').value,
+                 avatar: imageData,
+                 set_all: document.getElementById('set-all').checked == true });
+    }
+</script>
+
+<!-- For More Information in bot info -->
+<style>
+  .nav-pills li a {
+    color: rgb(202,204,207);
+  }
+
+  .nav-pills .active a {
+    color: rgb(230,252,255) !important;
+  }
+</style>
+
+<nav id="odh-nav" class="navbar navbar-inverse" style="border: none">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" style="font-family: Roboto;" href="../Dashboard.html">DiscordHaxx</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown active">
+        <a class="dropdown-toggle" data-toggle="dropdown">Management<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="../Dashboard.html">Dashboard</a></li>
+          <li><a href="List.html">Bots</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Start attack<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="Joiner.html">Joiner</a></li>
+              <li><a href="Leaver.html">Leaver</a></li>
+              <li><a href="Flooder.html">Flooder</a></li>
+              <li><a href="Friender.html">Friender</a></li>
+              <li><a href="Reactions.html">Reactions</a></li>
+              <li><a href="VCSpammer.html">VC spammer</a></li>
+          </ul>
+      </li>
+      <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Tools<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../Tools/Checker.html">Checker</a></li>
+            <li><a href="../Tools/Cleaner.html">Cleaner</a></li>
+            <li><a href="../Tools/Recon.html">Server recon</a></li>
+          </ul>
+        </li>
+  </ul>
+</div>
+</nav> 
+
+<body class="dark-body">
+    <!-- Bot list context menu -->
+    <ul id="bot-list-context-menu" class="dropdown-menu dark-dropdown-menu" style="width: 175px" role="menu" style="display:none;">
+        <li><a class="dark-dropdown">Modify user</a></li>
+        <li><a class="dark-dropdown">Get profile</a></li>
+        <li><a class="dark-dropdown">Get token</a></li>
+    </ul>
+
+    <!-- Account modification popup -->
+    <div id="modify-bot-modal" class="modal fade" role="dialog" aria-hidden="true">
+        <span id="modify-id" style="display: none"></span>
+
+        <div class="modal-dialog">
+            <div class="modal-content dark-container" style="height: 410px">
+                <div class="modal-header">
+                <button type="button" class="close" style="color: rgb(230,252,255)" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                <h4 id="modify-title" class="modal-title">Modify account</h4>
+                </div>
+                <div class="modal-body">
+                  <div style="display: flex; margin-bottom: 6px">
+                    <input id="modify-pfp-file" type="file" style="display: none" onchange="ReadImageFile(this)">
+
+                    <!-- Profile picture -->
+                    <div style="width: 80px; height: 80px; margin-right: 22px;" onmouseover="$('#modify-pfp-darken').fadeTo(150, 0.3)" onmouseout="const darken = document.getElementById('modify-pfp-darken'); darken.style.display = 'none'; darken.style.opacity = '0%'">
+                      <img id="modify-pfp" src="../Images/Anarchy.png" style="width: 100%; height: 100%; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;" onerror="this.src = '../Images/Default.png'">
+                      <!-- This is used as an overlay to make the image appear a bit darker -->
+                      <div id="modify-pfp-darken" style="width: 80px; height: 80px; display: none; background-color: black; position: absolute; left: 15px; top: 15px; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%" onclick="$('#modify-pfp-file').click()"></div>
+                    </div>
+  
+                    <!-- Name/Discriminator -->
+                    <p id="modify-at" style="font-size: 20px; margin-top: 25px">Hackerman<span style="font-size: 17px; color: rgb(170,192,195); margin-left: 3px">#1337</span></p>
+                  </div>
+
+                  <div style="display: flex">
+                    <div>
+                      <h3>Hypesquad</h3>
+                        
+                      <select id="modify-hype" class="form-control dark-input" style="width: 270px">
+                        <option style="font-family: Roboto; font-weight: 100;">None</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Bravery</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Brilliance</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Balance</option>
+                      </select>
+                    </div>
+      
+                    <div id="status-pick" style="margin-left: 26px">
+                      <h3>Status</h3>
+      
+                      <select id="status" class="form-control dark-input" style="width: 270px">
+                        <option style="font-family: Roboto; font-weight: 100;">Unset</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Online</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Idle</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Do not disturb</option>
+                        <option style="font-family: Roboto; font-weight: 100;">Offline</option>
+                      </select>
+                    </div>
+                  </div>
+
+
+                  <div class="form-check" style="margin-top: 118px">
+                    <input class="form-check-input" type="checkbox" id="set-all">
+                    <label class="form-check-label" style="font-weight:300; font-size: 15px" for="set-all">Change for all bots</label>
+                  </div>
+    
+                  <button class="btn dark-btn" data-dismiss="modal" style="width: 180px; position: absolute; top: 300px; right: 15px;" onclick="Modify()">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Profile popup -->
+    <div id="profile-modal" class="modal fade" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content dark-container" style="height: 530px">
+                <div class="modal-body">
+
+                  <!-- Top -->
+                  <div style="display: flex; margin-bottom: 14px">
+                      <img id="profile-pfp" src="../Images/Anarchy.png" style="width: 80px; height: 80px; margin-bottom: 11px; margin-right: 22px; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;" onerror="this.src = '../Images/Default.png'">
+
+                      <div>
+                        <!-- Name/Discriminator -->
+                        <p id="profile-at" style="font-size: 20px; margin-top: 7px;">Hackerman<span style="font-size: 17px; color: rgb(170,192,195); margin-left: 3px">#1337</span></p>
+
+                        <div id="profile-badges" style="display: flex; margin-top: -2px">
+                        </div>
+                      </div>
+                  </div>
+
+                  <!-- More information -->
+                  <div style="margin-left: 9px">
+                      <ul class="nav nav-pills" style="border: none">
+                        <li class="active"><a style="background-color: rgb(42,45,51); border: none" data-toggle="pill" href="#guilds">Servers</a></li>
+                        <li><a style="background-color: rgb(42,45,51); border: none" data-toggle="pill" href="#friends">Friends</a></li>
+                      </ul>
+      
+                      <div class="tab-content form-control" style="background-color: rgb(50,53,59); color: rgb(230,252,255); width: 550px; height: 320px; border: none; margin-top: 2px">
+                        <div id="guilds" class="tab-pane fade in active" style="overflow: auto; max-height: 300px">
+                          <table class="table table-hover" style="background-color: rgb(50,53,59);">
+                            <thead>
+                              <th>Name</th>
+                              <th>Id</th>
+                            </thead>
+                            <tbody id="guild-list">
+                            </tbody>
+                          </table>
+                        </div>
+                      <div id="friends" class="tab-pane fade" style="overflow: auto; max-height: 300px">
+                        <table class="table table-hover" style="background-color: rgb(50,53,59);">
+                          <thead>
+                            <th>@</th>
+                            <th>Id</th>
+                          </thead>
+                          <tbody id="friends-list">
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- Account token popup -->
+    <div id="bot-token-modal" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content dark-container">
+                <div class="modal-body">
+                  <button type="button" class="close" style="color: rgb(230,252,255)" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                  <h3 id="bot-token-title" class="modal-title">Token for account</h3>
+                  
+                  <p id="bot-token" style="margin-top: 12px"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bot list -->
+    <div id="bot-list-container" class="form-control dark-container" style="margin: auto; width:70%; height: auto; margin-bottom: 20px">
+        <table class="table table-hover">
+            <thead>
+                <th>@</th>
+                <th>ID</th>
+                <th>Hypesquad</th>
+                <th>Verification</th>
+            </thead>
+            <tbody id="bot-list">
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
