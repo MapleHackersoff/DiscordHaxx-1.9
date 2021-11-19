@@ -1,2 +1,2 @@
 start OpenDiscordHaxx/bin/Debug/OpenDHBackend.exe
-start OoenDiscordHaxxUI/index.html
+start OpenDiscordHaxxUI/index.html
